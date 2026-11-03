@@ -26,6 +26,8 @@ const HANDOFF_NOTICE = NOTICE_TEXT
 const COMMAND_NOTICE = NOTICE_TEXT
 const NOTICES = new Set([NOTICE_TEXT])
 
+const DEFAULT_HINT = '用第一人称写，用「我」和「他」；像写给自己看的备忘录，带上你当时的情绪和判断，不要写成客观档案。最后几轮说了什么必须写清楚。'
+
 export default {
   id: 'handoff',
   name: '长期交接',
@@ -38,7 +40,7 @@ export default {
     maxDays: 30,
     notify: true,
     recentLines: 40,
-    hint: '用第一人称写，用「我」和「他」；像写给自己看的备忘录，带上你当时的情绪和判断，不要写成客观档案。最后几轮说了什么必须写清楚。',
+    hint: DEFAULT_HINT,
   },
   settings: [
     { key: 'enabled', label: '启用', type: 'boolean' },
@@ -104,7 +106,8 @@ export default {
 
     /** 写交接便条：她自己的口吻 */
     const writeSummary = async (chatId, e) => {
-      const hint = String(api.settings().hint || '').trim()
+      // 空字符串不能当成"用户想清空"，否则默认的第一人称要求会被无声覆盖
+      const hint = String(api.settings().hint || '').trim() || DEFAULT_HINT
       const recent = (state.buffers[chatId] || [])
         .map((x) => `${x.who === 'me' ? '我' : '他'}：${x.text}`)
         .join('\n')

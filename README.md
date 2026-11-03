@@ -84,10 +84,11 @@ macOS/Linux: ~/.dsh/plugins-data/aurabot/modules/handoff/index.mjs
 
 **会真正丢失的情况只有两种**：手动删掉了会话目录；或者问法跟旧内容对不上关键词（问"那个东西"而记录里是"农场"）。
 
-## 依赖
+## 依赖与兼容版本
 
-- Aurabot（DSH 扩展框架）
-- **Node.js ≥ 22.15**（用到内置 `zlib.zstdDecompressSync` 解会话文件）
+- **Aurabot**：测试于 **v1.1.24**（commit `b3301f6b0140`，2026-10-31，main 分支）
+  - 更新了 Aurabot 之后，先发一次 `/交接自检` 确认还能读到历史会话；DSH 会话文件格式若变动，`recall_history` 会失效
+- **Node.js ≥ 22.15**：用到内置 `zlib.zstdDecompressSync` 解会话文件，低于这个版本会报"不是函数"
 
 ## 许可
 
