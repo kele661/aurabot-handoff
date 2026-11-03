@@ -39,7 +39,7 @@ export default {
     maxTokens: 100000,
     maxDays: 30,
     notify: true,
-    recentLines: 40,
+    recentLines: 80,
     hint: DEFAULT_HINT,
   },
   settings: [
